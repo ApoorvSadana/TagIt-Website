@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+    <title>Lightbox Example</title>
+    <link rel="stylesheet" href="../galleryDist/css/lightbox.min.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <section>
+      <h3>Challenges Till Now</h3>
+      <div id="gallery"></div>
+    </section>
+
+    <script src="../galleryDist/js/lightbox-plus-jquery.min.js"></script>
+    <script>
+      console.log("Hi!");
+      axios
+        .get("https://tagit.org.in/api/getAllParticipations?key=tag$100$")
+        .then(function (response) {
+          console.log(response);
+          for (let i = response.data.length; i--; i >= 0) {
+            let url = response.data[i];
+            var elem = document.createElement("a");
+            elem.setAttribute("class", "example-image-link");
+            elem.setAttribute("href", url);
+            elem.setAttribute("data-lightbox", "example-set");
+            elem.setAttribute(
+              "data-title",
+              "Click anywhere outside the image or the X to the right to close."
+            );
+            var image = document.createElement("img");
+            image.setAttribute("class", "example-image");
+            image.setAttribute("src", url);
+            image.setAttribute("src", url);
+            image.setAttribute("height", "400");
+            image.style.margin = "10px";
+            elem.appendChild(image);
+            document.getElementById("gallery").appendChild(elem);
+          }
+        });
+    </script>
+  </body>
+</html>
