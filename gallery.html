@@ -17,6 +17,24 @@
   <script src="../galleryDist/js/lightbox-plus-jquery.min.js"></script>
   <script>
     console.log("Hi!");
+
+    function buttonOnClickTrue(id, name) {
+      axios.post("https://tagit.org.in/api/challengeParticipationChangeStatus", {
+        newConverted: true,
+        participationId: id
+      }).then(() => {}).catch(() => {
+        alert('FAILED IN CONVERTING TO TRUE - ' + name);
+      })
+    }
+
+    function buttonOnClickFalse(id, name) {
+      axios.post("https://tagit.org.in/api/challengeParticipationChangeStatus", {
+        newConverted: false,
+        participationId: id
+      }).then(() => {}).catch(() => {
+        alert('FAILED IN CONVERTING TO FALSE - ' + name);
+      })
+    }
     axios
       .get("https://tagit.org.in/api/getAllParticipations?key=tag$100$")
       .then(function (response) {
@@ -24,6 +42,7 @@
         for (let i = 0; i < response.data.length; i++) {
           let url = response.data[i].url;
           let name = response.data[i].name;
+          let converted = response.data[i].converted;
           var elem = document.createElement("a");
           elem.setAttribute("class", "example-image-link");
           elem.setAttribute("href", url);
@@ -32,6 +51,8 @@
             "data-title",
             "Click anywhere outside the image or the X to the right to close."
           );
+
+
           var image = document.createElement("img");
           // image.setAttribute("class", "example-image");
           image.setAttribute("src", url);
@@ -39,9 +60,23 @@
           image.style.margin = "10px";
           // elem.appendChild(image);
           var p = document.createElement("p");
-          p.innerHTML = name;
+          p.innerHTML = name + ' | ' + url + ' | ' + "Validated: " + converted;
+          var button = document.createElement("button");
+          button.innerHTML = "Convert To True";
+          button.onclick = () => {
+            buttonOnClickTrue(response.data[i].participationId, name)
+          };
+          var button2 = document.createElement("button");
+          button2.innerHTML = "Convert To False";
+          button2.onclick = () => {
+            buttonOnClickFalse(response.data[i].participationId, name)
+          };
+          var br = document.createElement("br");
           document.getElementById("gallery").appendChild(image);
           document.getElementById("gallery").appendChild(p);
+          document.getElementById("gallery").appendChild(button);
+          document.getElementById("gallery").appendChild(button2);
+          document.getElementById("gallery").appendChild(br);
         }
       });
   </script>
