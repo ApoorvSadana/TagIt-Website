@@ -41,6 +41,8 @@
         console.log(response);
         for (let i = 0; i < response.data.length; i++) {
           let url = response.data[i].url;
+          url.replace('tagit.org.in/attempts/',
+            'tagit-s3.s3.ap-south-1.amazonaws.com/challengeAttempts/watermarked/');
           let name = response.data[i].name;
           let converted = response.data[i].converted;
           var elem = document.createElement("a");
