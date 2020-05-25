@@ -3,8 +3,9 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Lightbox Example</title>
+  <title>TagIt Gallery</title>
   <link rel="stylesheet" href="../galleryDist/css/lightbox.min.css" />
+  <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo/logo4.png" />
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 
@@ -45,6 +46,7 @@
             'tagit-s3.s3.ap-south-1.amazonaws.com/challengeAttempts/watermarked/');
           let name = response.data[i].name;
           let converted = response.data[i].converted;
+          let streakAttempt = response.data[i].streakAttempt;
           var elem = document.createElement("a");
           elem.setAttribute("class", "example-image-link");
           elem.setAttribute("href", url);
@@ -63,6 +65,9 @@
           // elem.appendChild(image);
           var p = document.createElement("p");
           p.innerHTML = name + ' | ' + url + ' | ' + "Validated: " + converted;
+          if (streakAttempt) {
+            p.innerHTML = p.innerHTML + ' | Streak Attempt: ' + streakAttempt;
+          }
           var button = document.createElement("button");
           button.innerHTML = "Convert To True";
           button.onclick = () => {
