@@ -53,7 +53,7 @@
 						transform: scale(1.1);">
 					</div>
 					<img id="profilePicFirstCard"
-						style="position: absolute; width: auto;border-radius: 50%; margin: 5%; width: 10%; border: 2px solid #8169eb;"
+						style="position: absolute; width: auto;border-radius: 50%; margin: 5%; width: 10%; border: 2px solid #8169eb;z-index: 10;"
 						src="https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=3077096585644682&height=50&width=50&ext=1592933518&hash=AeTv6J2emYpGWvDS" />
 					<img id="inviterPic"
 						style="height: 50%;position: absolute; width: auto; left: 50%; transform: translateX(-50%);"
@@ -226,11 +226,11 @@
 
 			var interval = Math.floor(seconds / 31536000);
 
-			if (interval > 1) {
+			if (interval >= 1) {
 				return interval + " years";
 			}
 			interval = Math.floor(seconds / 2592000);
-			if (interval > 1) {
+			if (interval >= 1) {
 				return interval + " months";
 			}
 			interval = Math.floor(seconds / 86400);
@@ -238,11 +238,11 @@
 				return interval + " days";
 			}
 			interval = Math.floor(seconds / 3600);
-			if (interval > 1) {
+			if (interval >= 1) {
 				return interval + " hours";
 			}
 			interval = Math.floor(seconds / 60);
-			if (interval > 1) {
+			if (interval >= 1) {
 				return interval + " minutes";
 			}
 			return Math.floor(seconds) + " seconds";
