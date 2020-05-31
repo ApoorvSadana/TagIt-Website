@@ -70,3 +70,27 @@
     font-size: 1.8rem;
     color: #8369e9
 }
+
+@media screen and (min-width: 800px) {
+    .onDesktopContainer {
+        width: 100% !important;
+    }
+
+    .stack__item {
+        width: 30% !important;
+    }
+
+    #stack_yuda {
+        justify-content: center;
+        display: flex;
+        font-size: 1.2rem !important;
+    }
+
+    .feedPost {
+        width: 30%;
+    }
+
+    .playButton {
+        margin-right: 1% !important;
+    }
+}
