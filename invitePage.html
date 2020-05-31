@@ -363,7 +363,10 @@
 					'_blank');
 			}
 			document.getElementById('feed').appendChild(instaButton)
-			document.getElementById('feed').lastChild.style.marginBottom = '20%'
+			document.getElementById('feed').lastChild.style.marginBottom = '20%';
+			if (window.innerWidth > 600) {
+				document.getElementById('feed').lastChild.style.marginBottom = '5%';
+			}
 		}
 		getFeed();
 	</script>

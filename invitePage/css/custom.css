@@ -93,4 +93,8 @@
     .playButton {
         margin-right: 1% !important;
     }
+
+    .instaButton {
+        width: 30%;
+    }
 }
