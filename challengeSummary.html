@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge Summary</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo/logo4.png" />
+    <link rel="stylesheet" type="text/css" href="assets/css/challengeSummary.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script type="text/javascript" src="js/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.3.0/jszip.min.js" type="text/javascript"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip-utils/0.1.0/jszip-utils.min.js" type="text/javascript">
+    </script>
+    <script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
+    </script>
+</head>
+
+<body style="margin:0">
+    <div class="container" style="height:100vh">
+        <!-- <header class="codrops-header color-0">
+			<div class="codrops-links">
+				<a class="codrops-icon codrops-icon--prev" href="http://tympanus.net/Development/PullToShare/"
+					title="Previous Demo"><span>Previous Demo</span></a>
+				<a class="codrops-icon codrops-icon--drop" href="http://tympanus.net/codrops/?p=25356"
+					title="Back to the article"><span>Back to the Codrops article</span></a>
+			</div>
+			<h1><span>Effects for</span> Card Stacks</h1>
+		</header> -->
+        <div class="content color-1 onDesktopContainer masterContainer"
+            style="padding: 0;background-image: linear-gradient(to bottom right, #8269ea, #f18bba); height:100vh;">
+            <!-- <h2 class="content__title">Yuda</h2> -->
+            <div class="stats">
+                <div class="challengeName">
+                    <span>#GuessTheCalories</span>
+                </div>
+                <ul>
+                    <li>Money Raised: Rs <span id="amountRaised"></span></li>
+                    <li>Challenges Done: <span id="attemptsAttributed"></span></li>
+                </ul>
+                <span id="progress" class="downloadProgress"></span>
+                <button class="downloadAll" onclick="downloadZip()">Download All Images</button>
+            </div>
+            <div id="feed" style="display: flex; flex-direction: column; align-items: center;transition: opacity
+				0.3s ease-out;-webkit-overflow-scrolling:touch;">
+                <!-- <div class="instaButton">
+					<i class="instaLogo" class="fa fa-instagram" aria-hidden="true"></i>
+					<span class="findMoreText">Find more on Instagram</span>
+                </div> -->
+            </div>
+        </div>
+    </div><!-- /container -->
+    <script>
+        function urlToPromise(url) {
+            return new Promise(function (resolve, reject) {
+                JSZipUtils.getBinaryContent(url, function (err, data) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(data);
+                    }
+                });
+            });
+        }
+        var zip = new JSZip();
+
+        function timeSince(date) {
+
+            var seconds = Math.floor((new Date() - date) / 1000);
+
+            var interval = Math.floor(seconds / 31536000);
+
+            if (interval >= 1) {
+                return interval + " years";
+            }
+            interval = Math.floor(seconds / 2592000);
+            if (interval >= 1) {
+                return interval + " months";
+            }
+            interval = Math.floor(seconds / 86400);
+            if (interval >= 1) {
+                return interval + " days";
+            }
+            interval = Math.floor(seconds / 3600);
+            if (interval >= 1) {
+                return interval + " hours";
+            }
+            interval = Math.floor(seconds / 60);
+            if (interval >= 1) {
+                return interval + " minutes";
+            }
+            return Math.floor(seconds) + " seconds";
+        }
+
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        async function getFeed() {
+            let result = await axios.post('https://tagit.org.in/api/getAllParticipationChallenge', {
+                ChallengeId: getParameterByName('ChallengeId', window.location.href)
+            });
+            let participations = result.data.participations;
+            let amountRaised = result.data.amountRaised;
+            let attemptsAttributed = result.data.attemptsAttributed;
+            document.getElementById('attemptsAttributed').textContent = attemptsAttributed;
+            document.getElementById('amountRaised').textContent = amountRaised;
+            participations.map((post) => {
+                let container = document.createElement("div");
+                container.setAttribute('class', 'feedPost');
+                let nameRow = document.createElement("div");
+                nameRow.setAttribute('class', 'nameRow');
+                let profilePic = document.createElement("img");
+                profilePic.setAttribute('class', 'profilePic');
+                profilePic.setAttribute('src', post.profilePic)
+                let name = document.createElement("span");
+                name.setAttribute('class', 'name');
+                name.textContent = post.name;
+                let line = document.createElement("hr");
+                let imagePost = document.createElement("img");
+                imagePost.setAttribute('class', 'image');
+                imagePost.setAttribute('src', post.imageUrl);
+                let nameColumn = document.createElement("div");
+                nameColumn.setAttribute('class', 'nameColumn');
+                let time = document.createElement("span");
+                time.setAttribute('class', 'time');
+                time.textContent = timeSince(new Date(post.participationTime)) + ' ago';
+                let downloadImage = document.createElement("a");
+                downloadImage.setAttribute('class', 'downloadImage');
+                downloadImage.setAttribute('href', post.imageUrl);
+                downloadImage.setAttribute('download', true);
+                downloadImage.innerHTML = 'Download';
+                nameRow.appendChild(profilePic);
+                nameColumn.appendChild(name);
+                nameColumn.appendChild(time);
+                nameRow.appendChild(nameColumn)
+                container.appendChild(nameRow);
+                container.appendChild(line);
+                container.appendChild(imagePost);
+                container.appendChild(downloadImage);
+                document.getElementById('feed').appendChild(container);
+                zip.file(post.name + '.' + post.imageUrl.split('.')[post.imageUrl.split('.').length - 1],
+                    urlToPromise(
+                        post.imageUrl
+                    ), {
+                        binary: true
+                    });
+            });
+            document.getElementById('feed').appendChild(instaButton)
+            document.getElementById('feed').lastChild.style.marginBottom = '20%';
+            if (window.innerWidth > 600) {
+                document.getElementById('feed').lastChild.style.marginBottom = '5%';
+            }
+        }
+        getFeed();
+
+        function downloadZip() {
+            zip.generateAsync({
+                    type: "blob"
+                }, function updateCallback(metadata) {
+                    var msg = "progression : " + metadata.percent.toFixed(2) + " %";
+                    if (metadata.currentFile) {
+                        msg += ", current file = " + metadata.currentFile;
+                    }
+                    // showMessage(msg);
+                    // updatePercent(metadata.percent | 0)
+                    console.log(msg);
+                    console.log(metadata.percent | 0);
+                    document.getElementById('progress').textContent = msg
+
+                })
+                .then(function callback(blob) {
+
+                    // see FileSaver.js
+                    saveAs(blob, "alImages.zip");
+                });
+        }
+    </script>
+</body>
+
+</html>
