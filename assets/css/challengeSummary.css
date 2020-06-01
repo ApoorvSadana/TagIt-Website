@@ -114,14 +114,15 @@
 .masterContainer .stats .downloadAll {
     margin-top: auto;
     width: 100%;
-    border: 2px solid #f74dd8;
+    border: 2px solid #8269ea;
     padding: 5%;
-    background-color: #f74dd8;
+    background-color: #8269ea;
     color: white;
     font-family: 'Poppins',
         sans-serif;
     font-size: 1.2rem;
     margin-top: 0;
+    cursor: pointer;
 }
 
 .masterContainer .stats .downloadProgress {
@@ -132,7 +133,7 @@
 
 .masterContainer .stats .downloadAll:hover {
     background-color: white;
-    color: #f74dd8;
+    color: #8269ea;
     transition: 0.1s ease-in;
 }
 
