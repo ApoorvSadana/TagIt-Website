@@ -147,7 +147,8 @@
                 container.appendChild(imagePost);
                 container.appendChild(downloadImage);
                 document.getElementById('feed').appendChild(container);
-                zip.file(post.name + '.' + post.imageUrl.split('.')[post.imageUrl.split('.').length - 1],
+                zip.file(post.name + '-' + new Date().getTime().toString() + '.' + post.imageUrl.split('.')[
+                        post.imageUrl.split('.').length - 1],
                     urlToPromise(
                         post.imageUrl
                     ), {
