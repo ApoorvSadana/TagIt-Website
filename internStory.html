@@ -17,7 +17,7 @@
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>You're Invited</title>
+	<title>Sam's Story</title>
 	<meta name="description" content="Some animation ideas for stacks of cards" />
 	<meta name="keywords" content="stack, cards, effect, ui, animation, inspiration, html, css" />
 	<meta name="author" content="Codrops" />
@@ -55,7 +55,7 @@
 				<li class="stack__item">
 					<div id="inviterPicBG" style="height: 50%; background-color: black; display:flex; align-items: center; justify-content: center;
 						background-image:
-						url('https://tagit-s3.s3.ap-south-1.amazonaws.com/challengeAttempts/watermarked/15905983860771590598380991.jpg');
+						url('./assets/img/internStory/razorpaycollage3.jpg');
 						background-position: center; /* Center the image */
 						background-repeat: no-repeat; /* Do not repeat the image */
 						background-size: cover; 
@@ -72,8 +72,7 @@
 						src="https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=3077096585644682&height=50&width=50&ext=1592933518&hash=AeTv6J2emYpGWvDS" /> -->
 					<img id="inviterPic"
 						style="height: 50%;position: absolute; width: auto; left: 50%; transform: translateX(-50%);"
-						src="https://tagit-s3.s3.ap-south-1.amazonaws.com/challengeAttempts/watermarked/15905983860771590598380991.jpg"
-						alt="Tree 1" />
+						src="./assets/img/internStory/razorpaycollage3.jpg" alt="Tree 1" />
 					<div style="height: 50%; background-color: white; z-index: 10; padding: 5%;">
 						<p>
 							We want you to become a
@@ -82,7 +81,7 @@
 						</p>
 					</div>
 				</li>
-				<!-- <li class="stack__item">
+				<li class="stack__item">
 					<div style="height: 100%;padding: 5%; display: flex; align-items: center;">
 						<p>Of course you are! But hold on for <span style="color: #f74dd8;">a minute</span> because we
 							have something to
@@ -207,7 +206,7 @@
 							better than you found it, <this style="color: #f74dd8;">this is the avenue you
 								can't afford to miss!</span></p>
 					</div>
-				</li> -->
+				</li>
 			</ul>
 			<div class="controls" id="navButtons"
 				style="transition: opacity 0.3s ease-out; position: fixed; bottom: 6%; z-index: 100000;">
@@ -274,7 +273,7 @@
 			document.getElementById('inviterPic').src = './assets/img/internStory/razorpaycollage3.jpg'
 		}
 
-		init();
+		// init();
 
 		function feedOnScroll() {
 			let elem = document.getElementById('instaButtonID');
