@@ -321,7 +321,7 @@
 			return Math.floor(seconds) + " seconds";
 		}
 		async function getFeed() {
-			let result = await axios.post('https://tagit.org.in/api/getInviteFeed');
+			let result = await axios.post('https://tagit.org.in/api/getInternFeed');
 			result.data.map((post) => {
 				let container = document.createElement("div");
 				container.setAttribute('class', 'feedPost');
